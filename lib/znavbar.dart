@@ -1,4 +1,4 @@
-library mynavbar;
+library znavbar;
 
 import 'dart:io';
 
