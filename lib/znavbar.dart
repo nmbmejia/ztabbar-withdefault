@@ -109,7 +109,11 @@ class _ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                                                     ),
                                                     child: tab.child,
                                                   )
-                                                : tab.child,
+                                                : imageBuilder(
+                                                    e.key,
+                                                    path: tab.value!,
+                                                    type: tab.imgType!,
+                                                  ),
                                           )
                                         : tab.type == ZType.icon
                                             ? IconTheme(
@@ -120,7 +124,11 @@ class _ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                                                 ),
                                                 child: tab.child,
                                               )
-                                            : tab.child,
+                                            : imageBuilder(
+                                                e.key,
+                                                path: tab.value!,
+                                                type: tab.imgType!,
+                                              ),
                                   ),
                                   if (widget.tabs[e.key].text != null) ...{
                                     AnimatedScale(
@@ -176,6 +184,8 @@ class _ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
               valueColor: AlwaysStoppedAnimation<Color>(widget.activeColor),
             ),
           ),
+          width: 25,
+          height: 25,
         );
       case ZImageType.network:
         return Image.network(
@@ -188,6 +198,8 @@ class _ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
               valueColor: AlwaysStoppedAnimation<Color>(widget.activeColor),
             ),
           ),
+          width: 25,
+          height: 25,
         );
       case ZImageType.file:
         // TODO: Handle this case.
@@ -201,28 +213,41 @@ class _ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
               valueColor: AlwaysStoppedAnimation<Color>(widget.activeColor),
             ),
           ),
+          width: 25,
+          height: 25,
         );
       case ZImageType.svgAsset:
         return SvgPicture.asset(
           path,
           color:
               currentIndex == index ? widget.activeColor : widget.inactiveColor,
+          width: 25,
+          height: 25,
         );
       case ZImageType.svgNetwork:
         return SvgPicture.network(
           path,
           color:
               currentIndex == index ? widget.activeColor : widget.inactiveColor,
+          width: 25,
+          height: 25,
         );
     }
   }
 }
 
 class ZTab {
+  final String? value;
+  final ZImageType? imgType;
   final String? text;
   final ZType type;
   final Widget child;
-  const ZTab({this.text, required this.type, required this.child});
+  const ZTab(
+      {this.text,
+      required this.type,
+      required this.child,
+      this.value,
+      this.imgType});
 }
 
 class ZTabIcon extends ZTab {
@@ -244,6 +269,8 @@ class ZTabImage extends ZTab {
           text: text,
           type: ZType.image,
           child: Container(),
+          imgType: imgType,
+          value: path,
         );
 }
 
