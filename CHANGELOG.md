@@ -6,3 +6,6 @@
 
 ## 0.0.3
 * Updated svg version
+
+## 0.0.4
+* state available for key update

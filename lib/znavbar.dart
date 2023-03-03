@@ -26,10 +26,10 @@ class ZNavbar extends StatefulWidget {
   final Color backgroundColor;
   final ValueChanged<int>? indexCallback;
   @override
-  State<ZNavbar> createState() => _ZNavbarState();
+  State<ZNavbar> createState() => ZNavbarState();
 }
 
-class _ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
+class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -38,6 +38,11 @@ class _ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void updateIndex(int i) {
+    currentIndex = i;
+    if (mounted) setState(() {});
   }
 
   int currentIndex = 0;
