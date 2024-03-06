@@ -1,15 +1,15 @@
 name: znavbar
 description: A new Flutter package project.
-version: 0.0.4
+version: 0.0.5
 
 environment:
-  sdk: ">=2.18.4 <3.0.0"
+  sdk: ">=3.2.3 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.0+1
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
