@@ -32,8 +32,11 @@ class ZNavbar extends StatefulWidget {
 }
 
 class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
+  int stCurrentIdx = 0;
+
   @override
   void initState() {
+    stCurrentIdx = widget.currentIndex;
     super.initState();
   }
 
@@ -43,7 +46,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
   }
 
   void updateIndex(int i) {
-    currentIndex = i;
+    stCurrentIdx = i;
     if (mounted) setState(() {});
   }
 
@@ -68,7 +71,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                     alignment: FractionalOffset(
-                        1 / (widget.tabs.length - 1) * currentIndex, 0),
+                        1 / (widget.tabs.length - 1) * stCurrentIdx, 0),
                     child: FractionallySizedBox(
                       widthFactor: 1 / widget.tabs.length,
                       child: Container(
@@ -86,14 +89,14 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                         return Expanded(
                           child: MaterialButton(
                             onPressed: () {
-                              currentIndex = e.key;
+                              stCurrentIdx = e.key;
                               if (widget.indexCallback != null) {
                                 widget.indexCallback!(e.key);
                               }
                               if (mounted) setState(() {});
                             },
                             child: AnimatedScale(
-                              scale: currentIndex == e.key ? 1 : .9,
+                              scale: stCurrentIdx == e.key ? 1 : .9,
                               duration: const Duration(milliseconds: 500),
                               child: Column(
                                 children: [
@@ -107,7 +110,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                                             child: tab.type == ZType.icon
                                                 ? IconTheme(
                                                     data: IconThemeData(
-                                                      color: currentIndex ==
+                                                      color: stCurrentIdx ==
                                                               e.key
                                                           ? widget.activeColor
                                                           : widget
@@ -124,7 +127,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                                         : tab.type == ZType.icon
                                             ? IconTheme(
                                                 data: IconThemeData(
-                                                  color: currentIndex == e.key
+                                                  color: stCurrentIdx == e.key
                                                       ? widget.activeColor
                                                       : widget.inactiveColor,
                                                 ),
@@ -138,7 +141,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                                   ),
                                   if (widget.tabs[e.key].text != null) ...{
                                     AnimatedScale(
-                                      scale: currentIndex == e.key ? 1 : .95,
+                                      scale: stCurrentIdx == e.key ? 1 : .95,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       child: FittedBox(
@@ -151,7 +154,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
                                             fontSize: (widget.tabs.length > 4
                                                 ? 11
                                                 : 12),
-                                            color: currentIndex == e.key
+                                            color: stCurrentIdx == e.key
                                                 ? widget.activeColor
                                                 : widget.inactiveColor,
                                           ),
@@ -183,7 +186,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
         return Image.asset(
           path,
           color:
-              currentIndex == index ? widget.activeColor : widget.inactiveColor,
+              stCurrentIdx == index ? widget.activeColor : widget.inactiveColor,
           errorBuilder: (_, __, ___) => Center(
             child: CircularProgressIndicator.adaptive(
               backgroundColor: widget.inactiveColor,
@@ -197,7 +200,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
         return Image.network(
           path,
           color:
-              currentIndex == index ? widget.activeColor : widget.inactiveColor,
+              stCurrentIdx == index ? widget.activeColor : widget.inactiveColor,
           errorBuilder: (_, __, ___) => Center(
             child: CircularProgressIndicator.adaptive(
               backgroundColor: widget.inactiveColor,
@@ -212,7 +215,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
         return Image.file(
           File(path),
           color:
-              currentIndex == index ? widget.activeColor : widget.inactiveColor,
+              stCurrentIdx == index ? widget.activeColor : widget.inactiveColor,
           errorBuilder: (_, __, ___) => Center(
             child: CircularProgressIndicator.adaptive(
               backgroundColor: widget.inactiveColor,
@@ -226,7 +229,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
         return SvgPicture.asset(
           path,
           color:
-              currentIndex == index ? widget.activeColor : widget.inactiveColor,
+              stCurrentIdx == index ? widget.activeColor : widget.inactiveColor,
           width: 25,
           height: 25,
         );
@@ -234,7 +237,7 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
         return SvgPicture.network(
           path,
           color:
-              currentIndex == index ? widget.activeColor : widget.inactiveColor,
+              stCurrentIdx == index ? widget.activeColor : widget.inactiveColor,
           width: 25,
           height: 25,
         );
