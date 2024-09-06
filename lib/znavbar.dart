@@ -9,6 +9,7 @@ class ZNavbar extends StatefulWidget {
   const ZNavbar(
       {Key? key,
       required this.tabs,
+      this.currentIndex = 0,
       this.indexCallback,
       this.backgroundColor = Colors.white,
       this.indicatorColor = Colors.blue,
@@ -20,6 +21,7 @@ class ZNavbar extends StatefulWidget {
   final List<ZTab> tabs;
   final Color indicatorColor;
   final double indicatorSize;
+  final int currentIndex;
   final Color activeColor;
   final Color inactiveColor;
   final EdgeInsets padding;
@@ -45,7 +47,6 @@ class ZNavbarState extends State<ZNavbar> with TickerProviderStateMixin {
     if (mounted) setState(() {});
   }
 
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
